@@ -1,12 +1,24 @@
 // Startup.cs or Program.cs
 using dotnet_my_platform_api.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<MyPlatformContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowMultipleDomains",
+    policy =>
+    {
+        policy.WithOrigins("https://jvegar.github.io");
+    });
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -22,6 +34,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowMultipleDomains"); // Use the CORS policy
 app.UseAuthorization();
 app.MapControllers();
 
