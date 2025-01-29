@@ -1,2 +1,6 @@
 bin/
 obj/
+publish/
+*.zip
+appsettings.Development.json
+appsettings.Production.json
