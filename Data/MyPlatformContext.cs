@@ -29,6 +29,8 @@ public partial class MyPlatformContext : DbContext
 
   public virtual DbSet<TechStack> TechStacks { get; set; }
 
+  public virtual DbSet<GitHubRepo> GitHubRepos { get; set; }
+
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     if (!optionsBuilder.IsConfigured)

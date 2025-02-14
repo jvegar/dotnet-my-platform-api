@@ -13,11 +13,13 @@ builder.Services.AddDbContext<MyPlatformContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "AllowMultipleDomains",
-    policy =>
-    {
-        policy.WithOrigins("https://jvegar.github.io");
-    });
+  options.AddPolicy(name: "AllowMultipleDomains",
+  policy =>
+  {
+    policy.WithOrigins("https://jvegar.github.io")
+            .AllowAnyHeader()
+            .AllowAnyMethod(); // Allow all methods including PUT
+  });
 });
 
 builder.Services.AddControllers();
@@ -29,8 +31,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
