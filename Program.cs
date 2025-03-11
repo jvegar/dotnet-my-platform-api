@@ -1,11 +1,11 @@
 // Startup.cs or Program.cs
 using dotnet_my_platform_api.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load allowed origins from appsettings.json
+var allowedOrigins = builder.Configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>();
 
 // Add services to the container.
 builder.Services.AddDbContext<MyPlatformContext>(options =>
@@ -13,12 +13,21 @@ builder.Services.AddDbContext<MyPlatformContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-  options.AddPolicy(name: "AllowMultipleDomains",
-  policy =>
+  options.AddPolicy(name: "AllowMultipleDomains", policy =>
   {
-    policy.WithOrigins("https://jvegar.github.io")
-            .AllowAnyHeader()
-            .AllowAnyMethod(); // Allow all methods including PUT
+    if (allowedOrigins != null && allowedOrigins.Length > 0)
+    {
+      policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod(); // Allow all methods including PUT
+    }
+    else
+    {
+      // Fallback policy if no origins are provided
+      policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    }
   });
 });
 

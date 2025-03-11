@@ -8,5 +8,5 @@ API developed for My Platform app
 dotnet publish -c Release -o ./publish
 cd publish
 zip -r ../myapp.zip .
-az webapp deployment source config-zip --resource-group MyResourceGroup --name MyUniqueAppName --src ../myapp.zip
+az webapp deploy --resource-group my-platform-api --name web-my-platform-api --src-path ../myapp.zi
 ```

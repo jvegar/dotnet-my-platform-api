@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using dotnet_my_platform_api.Models;
-using Microsoft.Extensions.Configuration;
 
 namespace dotnet_my_platform_api.Data;
 
