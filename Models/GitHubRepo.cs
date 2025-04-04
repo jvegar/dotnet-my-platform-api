@@ -9,5 +9,7 @@ namespace dotnet_my_platform_api.Models
     public string? Description { get; set; }
     public string? Language { get; set; }
     public List<string> Topics { get; set; } = new List<string>();
+    public string? Readme { get; set; }
+    public string? LiveUrl { get; set; }
   }
 }
