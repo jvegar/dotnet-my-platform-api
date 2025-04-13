@@ -4,3 +4,4 @@ publish/
 *.zip
 appsettings.Development.json
 appsettings.Production.json
+.env
